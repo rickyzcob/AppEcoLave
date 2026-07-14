@@ -1,0 +1,14 @@
+const precos={pequeno:{simples:39,regular:59,profunda:89},medio:{simples:49,regular:69,profunda:99},suv:{simples:59,regular:79,profunda:119},picape:{simples:69,regular:89,profunda:129}};
+let veiculoSelecionado='pequeno';let lavagemSelecionada='simples';
+const nomesVeiculos={pequeno:'Carro Pequeno',medio:'Carro Médio',suv:'SUV',picape:'Picape'};
+const nomesLavagens={simples:'Limpeza Simples',regular:'Limpeza Regular',profunda:'Limpeza Profunda'};
+function toggleMenu(){const menu=document.getElementById('menuArea');if(menu){menu.classList.toggle('active')}}
+function fecharMenu(){const menu=document.getElementById('menuArea');if(menu){menu.classList.remove('active')}}
+document.addEventListener('DOMContentLoaded',function(){
+document.querySelectorAll('.menu-link').forEach(link=>link.addEventListener('click',fecharMenu));
+document.querySelectorAll('.veiculo-btn').forEach(botao=>botao.addEventListener('click',function(){document.querySelectorAll('.veiculo-btn').forEach(item=>item.classList.remove('active'));this.classList.add('active');veiculoSelecionado=this.dataset.veiculo;atualizarPrecos()}));
+document.querySelectorAll('.lavagem-btn').forEach(botao=>botao.addEventListener('click',function(){document.querySelectorAll('.lavagem-btn').forEach(item=>item.classList.remove('active'));this.classList.add('active');lavagemSelecionada=this.dataset.lavagem;atualizarPrecos()}));
+});
+function atualizarPrecos(){if(!document.getElementById('precoSimples'))return;document.getElementById('precoSimples').innerText='R$ '+precos[veiculoSelecionado].simples;document.getElementById('precoRegular').innerText='R$ '+precos[veiculoSelecionado].regular;document.getElementById('precoProfunda').innerText='R$ '+precos[veiculoSelecionado].profunda;const valor=precos[veiculoSelecionado][lavagemSelecionada];document.getElementById('resumoServico').innerText=nomesVeiculos[veiculoSelecionado]+' • '+nomesLavagens[lavagemSelecionada];document.getElementById('precoFinal').innerText='R$ '+valor}
+function usarLocalizacao(){const campo=document.getElementById('endereco');if(!campo)return;if(!navigator.geolocation){campo.value='Seu navegador não permite localização.';return}campo.value='Buscando sua localização...';navigator.geolocation.getCurrentPosition(pos=>{campo.value='Localização encontrada: '+pos.coords.latitude.toFixed(6)+', '+pos.coords.longitude.toFixed(6)},()=>{campo.value='Não foi possível obter a localização.'})}
+function continuarAgendamento(){const telefone=document.getElementById('telefone')?.value;const endereco=document.getElementById('endereco')?.value;if(!telefone){alert('Informe seu WhatsApp para continuar.');return}if(!endereco){alert('Use sua localização para continuar.');return}window.location.href='area-cliente.html'}
