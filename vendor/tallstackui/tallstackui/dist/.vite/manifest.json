@@ -1,0 +1,60 @@
+{
+  "_copy-06j0lMfm.js": {
+    "file": "copy-06j0lMfm.js",
+    "name": "copy",
+    "imports": [
+      "_helpers-DoHv-iUH.js"
+    ]
+  },
+  "_helpers-DoHv-iUH.js": {
+    "file": "helpers-DoHv-iUH.js",
+    "name": "helpers"
+  },
+  "js/tallstackui-clipboard.js": {
+    "file": "tallstackui-clipboard-DSOmag6a.js",
+    "name": "tallstackui-clipboard",
+    "src": "js/tallstackui-clipboard.js",
+    "isEntry": true,
+    "imports": [
+      "_helpers-DoHv-iUH.js",
+      "_copy-06j0lMfm.js"
+    ]
+  },
+  "js/tallstackui-date.js": {
+    "file": "tallstackui-date-CbEf0FZx.js",
+    "name": "tallstackui-date",
+    "src": "js/tallstackui-date.js",
+    "isEntry": true,
+    "imports": [
+      "_helpers-DoHv-iUH.js"
+    ]
+  },
+  "js/tallstackui-select.js": {
+    "file": "tallstackui-select-CNQ0HqL1.js",
+    "name": "tallstackui-select",
+    "src": "js/tallstackui-select.js",
+    "isEntry": true,
+    "imports": [
+      "_helpers-DoHv-iUH.js"
+    ]
+  },
+  "js/tallstackui-tooltip.js": {
+    "file": "tallstackui-tooltip-DcJrbEHD.js",
+    "name": "tallstackui-tooltip",
+    "src": "js/tallstackui-tooltip.js",
+    "isEntry": true,
+    "css": [
+      "tallstackui-tooltip-Lcq2UOUK.css"
+    ]
+  },
+  "js/tallstackui.js": {
+    "file": "tallstackui-BcU-xdhg.js",
+    "name": "tallstackui",
+    "src": "js/tallstackui.js",
+    "isEntry": true,
+    "imports": [
+      "_helpers-DoHv-iUH.js",
+      "_copy-06j0lMfm.js"
+    ]
+  }
+}
