@@ -65,7 +65,7 @@ class Form extends Component
         $clientReturnDB = $clientRepository->create($request);
 
         if($clientReturnDB['status'] == 'success') {
-            return redirect()->route('client')->with($clientReturnDB['status'], $clientReturnDB['message']);
+            return redirect()->route('login')->with($clientReturnDB['status'], $clientReturnDB['message']);
         } else if ($clientReturnDB['status'] == 'error') {
             return back()->with($clientReturnDB['status'], $clientReturnDB['message']);
         }

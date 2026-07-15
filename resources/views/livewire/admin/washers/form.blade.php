@@ -22,7 +22,7 @@
                 @enderror
             </div>
 
-            <div class="md:col-span-5 col-span-12">
+            <div class="md:col-span-4 col-span-12">
                 <x-input icon="phone" x-mask="(99) 9 9999-9999" wire:model="state.phone" label="Whatsapp *"  />
                 @error('phone')
                 <div class="text-red-700 text-xs py-2">{{ $message }}</div>
@@ -36,8 +36,8 @@
                 @enderror
             </div>
 
-            <div class="md:col-span-3 col-span-12">
-                <x-select.styled label="Tipo *" wire:model.live="state.status"
+            <div class="md:col-span-4 col-span-12">
+                <x-select.styled label="Status *" wire:model.live="state.status"
                                  :options="[
                                         ['name' => 'Ativo', 'id' => 'active'],
                                         ['name' => 'Inativo', 'id' => 'inactive'],

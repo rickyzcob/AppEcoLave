@@ -18,8 +18,8 @@ Route::view('/area-do-lavador', 'site.washer.index')->name('washer');
 
 Route::middleware(['auth', 'client'])->group(function () {
     Route::view('/agendamentos', 'site.schedule.index')->name('schedule');
-    Route::view('/meus-pedidos', 'site.orders.index')->name('orders');
-    Route::view('/meu-perfil', 'site.profile.index')->name('profile');
+    Route::view('/meus-pedidos', 'site.orders.index')->name('my-my-orders');
+    Route::view('/meu-perfil', 'site.profile.index')->name('my-profile');
 });
 
 Route::get('/auth/google/callback', [\App\Http\Controllers\GoogleController::class, 'callback'])

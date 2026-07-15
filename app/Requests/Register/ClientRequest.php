@@ -32,10 +32,6 @@ class ClientRequest
                 Rule::requiredIf(fn () => $id == null),
                 'nullable',
             ],
-            'address' => 'required',
-            'vehicle' => 'required',
-            'type_vehicle' => 'required',
-            'plate_vehicle' => 'required'
         ]);
         return $validator;
     }

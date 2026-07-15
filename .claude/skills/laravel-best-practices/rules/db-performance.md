@@ -97,7 +97,7 @@ Index columns that appear in `WHERE`, `ORDER BY`, `JOIN`, and `GROUP BY` clauses
 
 Incorrect:
 ```php
-Schema::create('orders', function (Blueprint $table) {
+Schema::create('my-my-orders', function (Blueprint $table) {
     $table->id();
     $table->foreignId('user_id')->constrained();
     $table->string('status');
@@ -107,7 +107,7 @@ Schema::create('orders', function (Blueprint $table) {
 
 Correct:
 ```php
-Schema::create('orders', function (Blueprint $table) {
+Schema::create('my-my-orders', function (Blueprint $table) {
     $table->id();
     $table->foreignId('user_id')->index()->constrained();
     $table->string('status')->index();
@@ -181,7 +181,7 @@ Incorrect:
 Correct:
 ```php
 // Controller
-$users = User::with('profile')->get();
+$users = User::with('my-profile')->get();
 return view('users.index', compact('users'));
 ```
 

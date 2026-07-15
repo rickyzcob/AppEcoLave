@@ -131,7 +131,7 @@ DB::table('users')->where('active', true)->get();
 
 $query->join('companies', 'companies.id', '=', 'users.company_id');
 
-DB::select('SELECT * FROM orders WHERE status = ?', ['pending']);
+DB::select('SELECT * FROM my-my-orders WHERE status = ?', ['pending']);
 ```
 
 Correct — reference the model's table:

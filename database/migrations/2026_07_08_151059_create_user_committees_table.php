@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('order_id')->references('id')->on('my-my-orders');
             $table->decimal('value', 8, 2)->default(0);
             $table->decimal('percentage', 8, 2)->default(0);
             $table->decimal('value_commission', 8, 2)->default(0);

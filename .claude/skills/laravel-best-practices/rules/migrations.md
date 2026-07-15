@@ -50,7 +50,7 @@ Add indexes when creating the table, not as an afterthought. Columns used in `WH
 
 Incorrect:
 ```php
-Schema::create('orders', function (Blueprint $table) {
+Schema::create('my-my-orders', function (Blueprint $table) {
     $table->id();
     $table->foreignId('user_id')->constrained();
     $table->string('status');
@@ -60,7 +60,7 @@ Schema::create('orders', function (Blueprint $table) {
 
 Correct:
 ```php
-Schema::create('orders', function (Blueprint $table) {
+Schema::create('my-my-orders', function (Blueprint $table) {
     $table->id();
     $table->foreignId('user_id')->constrained()->index();
     $table->string('status')->index();

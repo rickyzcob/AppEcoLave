@@ -61,15 +61,6 @@
                 @enderror
             </div>
 
-            <div class="md:col-span-4 col-span-12">
-                <x-select.styled label="Lavador Responśavel *" wire:model.live="state.washer_id" :options="$response->washers" select="label:label|value:value" searchable/>
-
-                @error('washer_id')
-                <div class="text-red-700 text-xs py-2">{{ $message }}</div>
-                @enderror
-            </div>
-
-
             <div class="col-span-12">
                 <div class="flex justify-between items-center py-2 border-b border-blue-200 mb-2">
                     <h1> Serviço </h1>

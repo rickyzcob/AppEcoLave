@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'washer'])->group(function () {
-    Route::view('/dashboard', 'washer.dashboard.index')->middleware('auth')->name('dashboard');
-    Route::view('/pedidos', 'washer.orders.index')->middleware('auth')->name('orders');
-    Route::view('/avaliacoes', 'washer.evaluate.index')->middleware('auth')->name('evaluate');
-    Route::view('/financeiro', 'washer.financial.index')->middleware('auth')->name('financial');
-    Route::view('/historico', 'washer.historic.index')->middleware('auth')->name('historic');
-    Route::view('/meu-perfil', 'washer.profile.index')->middleware('auth')->name('profile');
+    Route::view('/dashboard', 'washer.dashboard.index')->name('dashboard');
+    Route::view('/meus-pedidos', 'washer.my-orders.index')->name('my-my-orders');
+    Route::view('/novos-pedidos', 'washer.new-orders.index')->name('new_orders');
+    Route::view('/avaliacoes', 'washer.evaluate.index')->name('evaluate');
+    Route::view('/financeiro', 'washer.financial.index')->name('financial');
+    Route::view('/historico', 'washer.historic.index')->name('historic');
+    Route::view('/meu-perfil', 'washer.my-profile.index')->name('my-profile');
 });

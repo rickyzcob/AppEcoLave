@@ -15,8 +15,11 @@ class Card extends Component
 
     public function mount()
     {
-        $this->order = Orders::query()->with(['service.type', 'user'])->where('status_washer', 'waiting')->orderByDesc('created_at')->first();
-
+        $this->order = Orders::query()
+            ->with(['service.type', 'user'])
+            ->withoutGlobalScope('scope')
+            ->where('status_washer', 'waiting')
+            ->orderByDesc('created_at')->first();
     }
 
     public function changeStatus($id = null, $status = null)

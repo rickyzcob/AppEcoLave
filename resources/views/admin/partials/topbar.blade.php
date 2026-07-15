@@ -31,12 +31,12 @@
                 class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-lg z-100"
                 style="display: none;">
 
-                <a href="{{route('admin.profile')}}" class="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                <a href="{{route('admin.my-profile')}}" class="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                     <i data-lucide="user" class="w-4 h-4"></i>
                     Meu Perfil
                 </a>
 
-                <a href="{{route('admin.orders')}}" class="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                <a href="{{route('admin.my-my-orders')}}" class="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                     <i data-lucide="package" class="w-4 h-4"></i>
                     Meus Pedidos
                 </a>

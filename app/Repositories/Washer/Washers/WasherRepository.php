@@ -76,7 +76,6 @@ class WasherRepository
 
     public function update($id, $request)
     {
-
         $washerRequest = new WasherRequest();
         $requestValidated = $washerRequest->validate($request, $id);
 

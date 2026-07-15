@@ -52,12 +52,6 @@
                     <x-button color="red" icon="x-circle" wire:click="changeStatus({{$itemOrder['id']}}, 'declined')">Recusar</x-button>
                 @endif
 
-
-                @if($itemOrder['status_washer'] === 'accepted' && $itemOrder['status'] !== 'service_finish')
-                    <x-button class="secondary" icon="arrow-path-rounded-square" wire:click="openCentralModal('washer.orders.status.card', {'id': {{$itemOrder['id']}} })">Alterar Status</x-button>
-                @elseif($itemOrder['status'] === 'service_finish')
-                    <x-button class="secondary" icon="arrow-path-rounded-square" wire:click="openCentralModal('washer.orders.status.card', {'id': {{$itemOrder['id']}} })" disabled>Alterar Status</x-button>
-                @endif
             </div>
         </div>
     @endforeach

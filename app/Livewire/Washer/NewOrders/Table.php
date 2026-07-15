@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Livewire\Washer\Orders;
+namespace App\Livewire\Washer\NewOrders;
 
+use App\Repositories\Order\NewOrdersRepository;
 use App\Repositories\Order\OrderRepository;
 use App\Traits\WithModal;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,12 +23,13 @@ class Table extends Component
         'direction' => 'DESC'
     ];
 
-    #[On('filterTableOrdersWasher')]
-    public function filterTableOrdersWasher($filterData = null)
+    #[On('filterTableNewOrdersWasher')]
+    public function filterTableNewOrdersWasher($filterData = null)
     {
         $this->resetPage();
         $this->filters = $filterData;
     }
+
     #[On('clearFilter')]
     public function clearFilter($visible = null)
     {
@@ -34,28 +37,17 @@ class Table extends Component
         $this->filters = null;
     }
 
-    #[On('getOrdersByWasher')]
-    public function getOrdersByWasher()
+    #[On('getNewOrders')]
+    public function getNewOrders()
     {
-        $ordersRepository = new OrderRepository();
+        $ordersRepository = new NewOrdersRepository();
         return  $ordersRepository->index($this->order, $this->filters, $this->pageSize)['data'];
-    }
-
-    public function confirmCancel($id = null ): void
-    {
-        $ordersRepository = new OrderRepository();
-        $ordersReturnDB = $ordersRepository->show($id)['data'];
-
-        $this->dialog()
-            ->question('Atenção !', 'Deseja Realmente cancelar o pedido do ' .$ordersReturnDB['name']. '?')
-            ->confirm('Apagar', 'delete', $id)
-            ->send();
     }
 
     public function changeStatus($id = null, $status = null)
     {
-        $ordersRepository = new OrderRepository();
-        $ordersReturnDB = $ordersRepository->updateStatus($id, $status);
+        $ordersRepository = new NewOrdersRepository();
+        $ordersReturnDB = $ordersRepository->updateStatus($id, $status, Auth::id());
 
         if($ordersReturnDB['status'] == 'success') {
             $this->toast()->success('Sucesso', $ordersReturnDB['message'])->send();
@@ -67,8 +59,8 @@ class Table extends Component
     public function render()
     {
         $response = new \stdClass();
-        $response->orders = $this->getOrdersByWasher();
+        $response->orders = $this->getNewOrders();
 
-        return view('livewire.washer.orders.table', ['response' => $response]);
+        return view('livewire.washer.new-orders.table', ['response' => $response]);
     }
 }

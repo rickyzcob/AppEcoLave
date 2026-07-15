@@ -13,6 +13,7 @@ class WasherRequest
         $validator =  Validator::validate($request, [
             'name' => 'required',
             'phone' => 'required',
+            'committee_id' => 'required',
             'taxpayer_registration' => [
                 'required',
                 "unique :users,taxpayer_registration,{$id},id"

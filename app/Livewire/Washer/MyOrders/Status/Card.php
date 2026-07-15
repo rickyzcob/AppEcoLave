@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Washer\Orders\Status;
+namespace App\Livewire\Washer\MyOrders\Status;
 
 use App\Repositories\Admin\Orders\OrderRepository;
 use App\Traits\WithModal;
@@ -36,6 +36,6 @@ class Card extends Component
 
     public function render()
     {
-        return view('livewire.washer.orders.status.card');
+        return view('livewire.washer.my-orders.status.card');
     }
 }

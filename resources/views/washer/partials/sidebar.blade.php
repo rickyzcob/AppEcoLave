@@ -20,14 +20,19 @@
             <span>📊</span> Dashboard
         </button>
 
-        <button class="{{ request()->routeIs('profissional.profile') ? 'active' : '' }}"
-                onclick="window.location='{{ route('profissional.profile') }}'">
+        <button class="{{ request()->routeIs('profissional.my-profile') ? 'active' : '' }}"
+                onclick="window.location='{{ route('profissional.my-profile') }}'">
             <span>👤</span> Meu Perfil
         </button>
 
-        <button class="{{ request()->routeIs('admin.orders') ? 'active' : '' }}"
-                onclick="window.location='{{ route('profissional.orders') }}'">
-            <span>📦</span> Pedidos
+        <button class="{{ request()->routeIs('profissional.new_orders') ? 'active' : '' }}"
+                onclick="window.location='{{ route('profissional.new_orders') }}'">
+            <span>🔔</span> Novos Pedidos
+        </button>
+
+        <button class="{{ request()->routeIs('profissional.my-my-orders') ? 'active' : '' }}"
+                onclick="window.location='{{ route('profissional.my-my-orders') }}'">
+            <span>📦</span> Meus Pedidos
         </button>
 
         <button data-page="rota">

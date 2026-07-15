@@ -1,5 +1,5 @@
 <div>
-    <div class="cards-order">
+    <div class="cards-order min-h-screen">
         @forelse($response->orders as $itemOrder)
             <div class="card-order">
                 <div class="grid grid-cols-12 gap-4 items-center">

@@ -92,6 +92,7 @@ class Orders extends Model
                 'declined' => 'Recusado',
                 'progress' => 'Em andamento',
                 'finish' => 'Finalizado',
+                'canceled' => 'Cancelado',
             },
         );
     }
@@ -106,6 +107,7 @@ class Orders extends Model
                 'declined' => 'red',
                 'progress' => 'orange',
                 'finish' => 'green',
+                'canceled' => 'red',
             },
         );
     }

@@ -40,11 +40,11 @@ class Form extends Component
         Session::regenerate();
 
         if(auth()->user()->scope === 'admin'){
-            $this->redirectIntended(default: route('admin.dashboard', absolute: false), navigate: false);
+            $this->redirectIntended(default: route('admin.dashboard', absolute: true), navigate: false);
         }
 
         if(auth()->user()->scope === 'washer'){
-            $this->redirectIntended(default: route('professional.dashboard', absolute: false), navigate: false);
+            $this->redirectIntended(default: route('profissional.dashboard', absolute: true), navigate: false);
         }
 
         if(auth()->user()->scope === 'client'){

@@ -28,12 +28,12 @@
                 class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-lg overflow-hidden z-50"
                 style="display: none;">
 
-                <a href="{{route('profile')}}" class="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                <a href="{{route('my-profile')}}" class="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                     <i data-lucide="user" class="w-4 h-4"></i>
                     Meu Perfil
                 </a>
 
-                <a href="{{route('orders')}}" class="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                <a href="{{route('my-my-orders')}}" class="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                     <i data-lucide="package" class="w-4 h-4"></i>
                     Meus Pedidos
                 </a>
@@ -62,8 +62,11 @@
             lucide.createIcons();
         </script>
 
-    @elseif(auth()->user() && in_array(auth()->user()->scope, ['admin', 'washer']))
+    @elseif(auth()->user() && auth()->user()->scope === 'admin'))
         <a href="{{route('admin.dashboard')}}" class="btn-cliente cursor-pointer"> {{auth()->user()->name}}</a>
+
+    @elseif(auth()->user() && auth()->user()->scope === 'washer'))
+        <a href="{{route('profissional.dashboard')}}" class="btn-cliente cursor-pointer"> {{auth()->user()->name}}</a>
     @else
         <a wire:click="openCentralModal('site.login.form', {'id': null })" class="btn-cliente cursor-pointer">Área do Cliente</a>
 {{--        <a wire:click="openCentralModal('site.login.form', {'id': null })"  class="btn-lavador cursor-pointer">Área do Lavador</a>--}}

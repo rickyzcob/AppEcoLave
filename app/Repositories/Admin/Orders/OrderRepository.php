@@ -6,6 +6,7 @@ use App\Models\Committees;
 use App\Models\Orders;
 use App\Models\User;
 use App\Models\UserCommittees;
+use App\Repositories\Order\NewOrdersRepository;
 use App\Requests\Admin\OrderRequest;
 use PHPUnit\Exception;
 
@@ -170,8 +171,13 @@ class OrderRepository
             $orderDB = Orders::query()->findOrFail($id);
 
             $orderDB->update([
-                'status' => $status
+                'status' => $status,
+                'status_washer' => $status
             ]);
+
+            $newOrderRepository = new NewOrdersRepository();
+
+            $newOrderRepository->updateStatus($id, 'canceled', $orderDB['washer_id']);
 
             return [
                 'status' => 'success',
@@ -236,6 +242,16 @@ class OrderRepository
     {
         try {
 
+            $washerDB = User::query()->findOrFail($washer_id);
+
+            if(empty($washerDB['committee_id'])) {
+                return [
+                    'status' => 'error',
+                    'code' => 404,
+                    'message' => 'Profissional sem comissao cadastrada no sistema !'
+                ];
+            }
+
             $orderDB = Orders::query()->findOrFail($id);
 
             $userCommiteeDB = UserCommittees::query()
@@ -247,11 +263,8 @@ class OrderRepository
                 $userCommiteeDB->delete();
             }
 
-            $orderDB->update([
-                'washer_id' => $washer_id,
-                'status' => 'waiting',
-                'status_washer' => 'waiting'
-            ]);
+            $newOrderRepository = new NewOrdersRepository();
+            $return = $newOrderRepository->updateStatus($orderDB['id'], 'accepted', $washer_id);
 
             return [
                 'status' => 'success',

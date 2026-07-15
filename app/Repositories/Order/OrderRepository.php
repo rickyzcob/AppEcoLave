@@ -17,7 +17,8 @@ class OrderRepository
     public function index($orderBy = null, $pageSize = null, $filterData = null)
     {
         try {
-            $orderDB = Orders::query()->with(['service.type']);
+            $orderDB = Orders::query()
+                ->with(['service.type']);
 
             if($orderBy) {
                 $orderDB->orderBy($orderBy['column'], $orderBy['direction']);
@@ -121,7 +122,7 @@ class OrderRepository
     public function show($id)
     {
         try {
-            $orderDB = Orders::query()->find($id);
+            $orderDB = Orders::query()->where('id', $id)->first();
 
             return [
                 'status' => 'success',
@@ -129,7 +130,7 @@ class OrderRepository
                 'code' => 200,
 
             ];
-        }catch (Exception $exception){
+        } catch (Exception $exception){
             return [
                 'status' => 'error',
                 'code' => 400,
@@ -155,6 +156,7 @@ class OrderRepository
             ];
 
         } catch (\Exception $exception) {
+            DB::rollback();
             return [
                 'status' => 'error',
                 'code' => 400,
@@ -169,13 +171,13 @@ class OrderRepository
 
             $orderDB = Orders::query()->with(['washer.committee', 'service'])->findOrFail($id);
 
-            if($orderDB['status'] === 'accepted' && Auth::id() === $orderDB['washer_id']['user_id']) {
-                return [
-                    'status' => 'error',
-                    'code' => 400,
-                    'message' => 'Você já aceitou esse pedido !'
-                ];
-            }
+//            if($orderDB['status'] === 'accepted' && Auth::id() === $orderDB['washer_id']) {
+//                return [
+//                    'status' => 'error',
+//                    'code' => 400,
+//                    'message' => 'Você já aceitou esse pedido !'
+//                ];
+//            }
 
             if($status === 'accepted') {
                 $orderDB->update([
@@ -196,7 +198,8 @@ class OrderRepository
 
             if($status === 'declined') {
                 $orderDB->update([
-                    'status_washer' => $status
+                    'status_washer' => $status,
+                    'status' => 'waiting'
                 ]);
 
                 $userCommiteDB = UserCommittees::query()->where('order_id', $orderDB['id'])->first();
@@ -221,6 +224,4 @@ class OrderRepository
             ];
         }
     }
-
-
 }

@@ -17,7 +17,6 @@ class OrderRequest
             'user.phone' => 'required',
             'user.email' => 'required',
             'user.taxpayer_registration' => 'required',
-            'washer_id' => 'required',
             'type_id' => 'required',
             'service_id' => 'required',
             'zip_code' => 'required',

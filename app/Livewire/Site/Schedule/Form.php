@@ -99,7 +99,7 @@ class Form extends Component
         $orderReturnDB = $orderRepository->create($request, $this->service);
 
         if($orderReturnDB['status'] == 'success') {
-            return redirect()->route('orders')->with($orderReturnDB['status'], $orderReturnDB['message']);
+            return redirect()->route('my-my-orders')->with($orderReturnDB['status'], $orderReturnDB['message']);
         } else if ($orderReturnDB['status'] == 'error') {
             return back()->with($orderReturnDB['status'], $orderReturnDB['message']);
         }
