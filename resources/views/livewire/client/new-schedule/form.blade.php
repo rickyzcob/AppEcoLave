@@ -16,7 +16,7 @@
 
     <div class="form-card">
         <form wire:submit="save">
-            <div class="grid grid-cols-12 gap-4 ">
+            <div class="grid grid-cols-12 gap-4 items-start">
 
                 <!-- Veículo -->
                 <div class="md:col-span-3 col-span-12 form-group">
@@ -88,10 +88,9 @@
                     @enderror
                 </div>
 
-                <div class="md:col-span-1 col-span-12 form-group pt-5">
+                <div class="md:col-span-1 col-span-12 form-group pt-7">
                     <button wire:click.prevent="getAddress" class="btn btn-primary btn-lg btn-full">
-                         <i class="fas fa-magnifying-glass"></i>
-                        Buscar
+                         <i class="fas fa-magnifying-glass font-bold"></i>
                     </button>
                 </div>
 

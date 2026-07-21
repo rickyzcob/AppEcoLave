@@ -87,13 +87,13 @@
                         @enderror
                     </div>
 
-                    <div class="md:col-span-2 col-span-12 form-group pt-6">
+                    <div class="md:col-span-1 col-span-12 form-group pt-8">
                         <button wire:click.prevent="getAddress" class="btn btn-primary" style="flex:1;">
-                            <i class="fas fa-magnifying-glass"></i> Buscar
+                            <i class="fas fa-magnifying-glass"></i>
                         </button>
                     </div>
 
-                    <div class="md:col-span-4 col-span-12 form-group">
+                    <div class="md:col-span-5 col-span-12 form-group">
                         <label class="form-label" for="endereco">
                             <i class="fas fa-map-marker-alt"></i> Endereço
                         </label>
