@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
-class Form extends Component
+class cForm extends Component
 {
     use Interactions;
     public $type_vehicle_id;

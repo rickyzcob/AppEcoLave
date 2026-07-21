@@ -3,6 +3,8 @@
 namespace App\Livewire\Washer\Dashboard\Cards;
 
 use App\Models\Orders;
+use App\Models\UsersReviews;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Card extends Component
@@ -12,11 +14,15 @@ class Card extends Component
 
     public function mount()
     {
-        $evaluatesCount = Orders::query()->whereNotNull('rate')->count();
+        $evaluatesCount = Orders::query()->with(['review'])
+            ->doesntHave('review')
+            ->count();
 
-        $media = Orders::query()->where('status', 'service_finish')
-            ->whereNotNull('rate')
-            ->avg('rate');
+//        $media = Orders::query()->where('status', 'service_finish')
+//            ->whereNotNull('rate')
+//            ->avg('rate');
+
+        $media = UsersReviews::query()->where('washer_id', Auth::id())->avg('rate');
 
         $this->evaluate['evaluates_count'] = $evaluatesCount;
         $this->evaluate['evaluates_average'] = round($media);

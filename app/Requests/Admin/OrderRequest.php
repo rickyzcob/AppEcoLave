@@ -19,6 +19,7 @@ class OrderRequest
             'user.taxpayer_registration' => 'required',
             'type_id' => 'required',
             'service_id' => 'required',
+            'vehicle_id' => 'required',
             'zip_code' => 'required',
             'street' => 'required',
             'number' => 'required',
@@ -26,22 +27,26 @@ class OrderRequest
             'neighborhood' => 'sometimes|nullable',
             'city' => 'sometimes|nullable',
             'uf' => 'sometimes|nullable',
-            'vehicle' => 'required',
-            'vehicle_plate' => 'required'
+            'date_schedule' => 'required',
+            'hour_schedule' => 'required'
         ]);
         return $validator;
     }
 
     public function validateEvaluate($request, $id = null)
     {
-
-
         $validator =  Validator::validate($request, [
             'comment' => 'sometimes|nullable'
         ]);
         return $validator;
     }
 
-
-
+    public function validateEvaluateClient($request, $id = null)
+    {
+        $validator =  Validator::validate($request, [
+            'client_id' => 'required',
+            'comment' => 'sometimes|nullable'
+        ]);
+        return $validator;
+    }
 }

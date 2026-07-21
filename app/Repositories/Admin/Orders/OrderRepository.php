@@ -7,12 +7,12 @@ use App\Models\Orders;
 use App\Models\User;
 use App\Models\UserCommittees;
 use App\Repositories\Order\NewOrdersRepository;
+use App\Repositories\Vendor\OrderStatusRepository;
 use App\Requests\Admin\OrderRequest;
 use PHPUnit\Exception;
 
 class OrderRepository
 {
-
     public function index($orderBy = null, $pageSize = null, $filterData = null)
     {
         try {
@@ -75,7 +75,12 @@ class OrderRepository
                 $requestValidated['user_id'] = $userDB['id'];
             }
 
+            $requestValidated['status'] = 'accepted';
+
             $orderDB = Orders::query()->create($requestValidated);
+
+            $orderStatusRepository = new OrderStatusRepository();
+            $orderStatusRepository->createStatusesByOrderId($orderDB['id']);
 
             return [
                 'status' => 'success',
@@ -166,18 +171,17 @@ class OrderRepository
 
     public function updateStatus($id, $status = null)
     {
+
         try {
 
             $orderDB = Orders::query()->findOrFail($id);
 
+            $orderStatusRepository = new OrderStatusRepository();
+            $orderStatusRepository->updateOrderStatuses($orderDB['id'], $orderDB['status'], $status);
+
             $orderDB->update([
                 'status' => $status,
-                'status_washer' => $status
             ]);
-
-            $newOrderRepository = new NewOrdersRepository();
-
-            $newOrderRepository->updateStatus($id, 'canceled', $orderDB['washer_id']);
 
             return [
                 'status' => 'success',

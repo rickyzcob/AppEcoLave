@@ -19,6 +19,13 @@ function formatDate($value, $format = 'd/m/Y')
     return $date;
 }
 
+function formatTime($value, $format = 'H:i')
+{
+
+    return Carbon::parse($value)->translatedFormat($format);
+}
+
+
 function formatMonth($value, $format = 'm/Y')
 {
     $explode = explode("-", $value);
@@ -30,6 +37,13 @@ function formatMonth($value, $format = 'm/Y')
         $date = $explode[0];
     }
     return $date;
+}
+
+function monthYear($date = null): string
+{
+    return \Carbon\Carbon::parse($date ?? now())
+        ->locale('pt_BR')
+        ->translatedFormat('F \d\e Y');
 }
 
 function dateDiffInDays($date1, $date2)

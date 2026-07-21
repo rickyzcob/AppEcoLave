@@ -5,11 +5,12 @@ namespace App\Repositories\Washer\Profile;
 use App\Models\User;
 use App\Requests\Washer\WasherRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use PHPUnit\Exception;
 
 class ProfileRepository
 {
-    public function update($id, $request)
+    public function update($id, $request, $image)
     {
 
         $washerRequest = new WasherRequest();
@@ -18,16 +19,26 @@ class ProfileRepository
         try {
             DB::beginTransaction();
 
-            $washerDB = User::query()->findOrFail($id);
-            $washerDB->update($requestValidated);
+            $userDB = User::query()->findOrFail($id);
+
+            if(isset($image) && $image != $userDB['profile_photo_path']){
+                if(Storage::exists('public/'.$userDB['profile_photo_path'])) {
+                    Storage::delete('public/'.$userDB['profile_photo_path']);
+                }
+                $requestValidated['profile_photo_path'] = $image->store('users/image', 'public');
+            } else {
+                $requestValidated['profile_photo_path'] = $userDB['profile_photo_path'];
+            }
+
+            $userDB->update($requestValidated);
 
             DB::commit();
 
             return [
                 'status' => 'success',
-                'data' => $washerDB,
+                'data' => $userDB,
                 'code' => 200,
-                'message' => 'Profissional atualizado com sucesso !'
+                'message' => 'Usuário atualizado com sucesso !'
             ];
 
         }catch (\Exception $exception) {

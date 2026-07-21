@@ -3,8 +3,10 @@
 namespace App\Repositories\Order;
 
 use App\Models\Orders;
+use App\Models\OrdersStatus;
 use App\Models\User;
 use App\Models\UserCommittees;
+use App\Repositories\Vendor\OrderStatusRepository;
 use App\Requests\Order\OrderRequest;
 use App\Requests\Register\ClientRequest;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +15,14 @@ use PHPUnit\Exception;
 
 class OrderRepository
 {
-
     public function index($orderBy = null, $pageSize = null, $filterData = null)
     {
         try {
             $orderDB = Orders::query()
-                ->with(['service.type']);
+                ->with([
+                    'service.type',
+                    'vehicle'
+                ]);
 
             if($orderBy) {
                 $orderDB->orderBy($orderBy['column'], $orderBy['direction']);
@@ -165,41 +169,52 @@ class OrderRepository
         }
     }
 
-    public function updateStatus($id, $status = null)
+    public function updateStatus($id, $user_id, $status)
     {
         try {
 
-            $orderDB = Orders::query()->with(['washer.committee', 'service'])->findOrFail($id);
+            $orderDB = Orders::query()->with(['washer.committee', 'service'])->withoutGlobalScope('scope')->findOrFail($id);
 
-//            if($orderDB['status'] === 'accepted' && Auth::id() === $orderDB['washer_id']) {
-//                return [
-//                    'status' => 'error',
-//                    'code' => 400,
-//                    'message' => 'Você já aceitou esse pedido !'
-//                ];
-//            }
+            if($orderDB['washer_id'] != null && $orderDB['status_washer'] == 'accepted') {
+                return [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'Pedido já aceito por um profissional !'
+                ];
+            }
+
+            $washerDB = User::query()->with(['committee'])->find($user_id);
 
             if($status === 'accepted') {
+
+                $orderStatusRepository = new OrderStatusRepository();
+                $orderStatusRepository->updateOrderStatuses($orderDB['id'], $orderDB['status'], $status);
+
                 $orderDB->update([
+                    'washer_id' => $washerDB['id'],
                     'status_washer' => $status,
                     'status' => $status,
                 ]);
 
-                $value_comission = $orderDB['service']['price'] * ($orderDB['washer']['committee']['value'] / 100);
+                $value_comission = $orderDB['service']['price'] * ($washerDB['committee']['value'] / 100);
 
                 UserCommittees::query()->create([
-                    'user_id' => $orderDB['washer_id'],
+                    'user_id' => $washerDB['id'],
                     'order_id' => $orderDB['id'],
                     'value'=> $orderDB['service']['price'],
-                    'percentage'=>  $orderDB['washer']['committee']['value'],
+                    'percentage'=>  $washerDB['committee']['value'],
                     'value_commission' => $value_comission,
                 ]);
             }
 
             if($status === 'declined') {
+
+                $orderStatusRepository = new OrderStatusRepository();
+                $orderStatusRepository->resetOrderStatuses($orderDB['id']);
+
                 $orderDB->update([
                     'status_washer' => $status,
-                    'status' => 'waiting'
+                    'status' => 'received'
                 ]);
 
                 $userCommiteDB = UserCommittees::query()->where('order_id', $orderDB['id'])->first();

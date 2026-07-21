@@ -48,7 +48,7 @@ class Form extends Component
         }
 
         if(auth()->user()->scope === 'client'){
-            $this->redirectIntended(default: route('home', absolute: false), navigate: false);
+            $this->redirectIntended(default: route('client.dashboard', absolute: false), navigate: false);
         }
 
     }

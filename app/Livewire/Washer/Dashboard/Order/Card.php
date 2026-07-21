@@ -4,6 +4,7 @@ namespace App\Livewire\Washer\Dashboard\Order;
 
 use App\Models\Orders;
 use App\Repositories\Order\OrderRepository;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
@@ -25,7 +26,7 @@ class Card extends Component
     public function changeStatus($id = null, $status = null)
     {
         $ordersRepository = new OrderRepository();
-        $ordersReturnDB = $ordersRepository->updateStatus($id, $status);
+        $ordersReturnDB = $ordersRepository->updateStatus($id, Auth::id(), $status );
 
         if($ordersReturnDB['status'] == 'success') {
             $this->toast()->success('Sucesso', $ordersReturnDB['message'])->send();
@@ -34,8 +35,22 @@ class Card extends Component
         }
     }
 
+    public function getLastNewOrder()
+    {
+        $lastNewOrder = Orders::query()
+            ->with(['service.type', 'user'])
+            ->withoutGlobalScope('scope')
+            ->where('status_washer', 'waiting')
+            ->orderByDesc('created_at')->first();
+
+        return $lastNewOrder;
+    }
+
     public function render()
     {
-        return view('livewire.washer.dashboard.order.card');
+        $response = new \stdClass();
+        $response->newOrder = $this->getLastNewOrder();
+
+        return view('livewire.washer.dashboard.order.card', ['response' => $response]);
     }
 }

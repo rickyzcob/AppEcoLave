@@ -5,6 +5,7 @@ namespace App\Repositories\Order;
 use App\Models\Orders;
 use App\Models\User;
 use App\Models\UserCommittees;
+use App\Repositories\Vendor\OrderStatusRepository;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Exception;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ class NewOrdersRepository
     {
         try {
             $orderDB = Orders::query()
-                ->with(['service.type'])
+                ->with(['service.type', 'vehicle'])
                 ->withoutGlobalScope('scope');
 
             $orderDB->whereIn('status_washer', ['waiting', 'declined']);
@@ -65,15 +66,10 @@ class NewOrdersRepository
 
             $washerDB = User::query()->with(['committee'])->findOrFail($washer_id);
 
-//            if($orderDB['status'] === 'accepted') {
-//                return [
-//                    'status' => 'error',
-//                    'code' => 400,
-//                    'message' => 'Você já aceitou esse pedido !'
-//                ];
-//            }
-
             if($status === 'accepted') {
+
+                $orderStatusRepository = new OrderStatusRepository();
+                $orderStatusRepository->updateOrderStatuses($orderDB['id'], $orderDB['status'], $status);
 
                 $orderDB->update([
                     'status_washer' => $status,
@@ -107,7 +103,6 @@ class NewOrdersRepository
             }
 
             if($status === 'canceled') {
-
                 $userCommiteDB = UserCommittees::query()->where('order_id', $orderDB['id'])->first();
 
                 if($userCommiteDB) {

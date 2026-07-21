@@ -6,10 +6,11 @@
 
         <div class="list">
             @foreach($response->evaluates as $itemEvaluate)
+{{--                @dd($itemEvaluate)--}}
 {{--                @dd($itemEvaluate);--}}
                 <div class="bg-blue-50 p-3 rounded-md">
                     <div class="flex flex-col gap-1">
-                        <strong> {{$itemEvaluate['user']['name'] ?? ''}}</strong>
+                        <strong> {{$itemEvaluate['order']['user']['name'] ?? ''}}</strong>
                         <span class="text-xs text-gray-500"> {{$itemEvaluate['comment']}}</span>
                     </div>
 

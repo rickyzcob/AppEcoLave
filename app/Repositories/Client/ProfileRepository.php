@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Repositories\Client;
+
+use App\Models\User;
+use App\Requests\Client\ClientRequest;
+use App\Requests\Washer\WasherRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use PHPUnit\Exception;
+
+class ProfileRepository
+{
+
+    public function update($id, $request, $image)
+    {
+
+        $clientRequest = new ClientRequest();
+        $requestValidated = $clientRequest->validate($request, $id);
+
+        try {
+            DB::beginTransaction();
+
+            $userDB = User::query()->findOrFail($id);
+
+            if(isset($image) && $image != $userDB['profile_photo_path']){
+                if(Storage::exists('public/'.$userDB['profile_photo_path'])) {
+                    Storage::delete('public/'.$userDB['profile_photo_path']);
+                }
+                $requestValidated['profile_photo_path'] = $image->store('users/image', 'public');
+            } else {
+                $requestValidated['profile_photo_path'] = $userDB['profile_photo_path'];
+            }
+
+            $userDB->update($requestValidated);
+
+            DB::commit();
+
+            return [
+                'status' => 'success',
+                'data' => $userDB,
+                'code' => 200,
+                'message' => 'Usuário atualizado com sucesso !'
+            ];
+
+        } catch (\Exception $exception) {
+            dd($exception);
+            DB::rollback();
+            return [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Erro ao Atualizar'
+            ];
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $washerDB = User::query()->find($id);
+
+            return [
+                'status' => 'success',
+                'data' => $washerDB,
+                'code' => 200,
+
+            ];
+        }catch (Exception $exception){
+            return [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Erro na requisição'
+            ];
+        }
+    }
+}

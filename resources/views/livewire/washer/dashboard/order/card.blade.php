@@ -3,25 +3,25 @@
 
     <div class="grid">
         <div class="panel">
-            @if($order)
+            @if($response->newOrder)
             <div class="panel-head">
                 <h2>Novo pedido recebido</h2>
-                <x-badge text="{{$order['statusWasherLabel']}}" color="{{$order['statusWasherColor']}}"></x-badge>
+                <x-badge text="{{$response->newOrder['statusWasherLabel']}}" color="{{$response->newOrder['statusWasherColor']}}"></x-badge>
             </div>
 
             <div class="order-card">
                 <div class="order-head">
                     <div>
-                        <h3>{{$order['service']['type']['name']}}</h3>
-                        <p>Cliente: {{$order['user']['name']}}</p>
+                        <h3>{{$response->newOrder['service']['type']['name']}}</h3>
+                        <p>Cliente: {{$response->newOrder['user']['name']}}</p>
                     </div>
-                    <div class="price">{{formatMoney($order['service']['price'])}}</div>
+                    <div class="price">{{formatMoney($response->newOrder['service']['price'])}}</div>
                 </div>
 
                 <div class="order-info">
                     <div class="info-box">
                         <span>Endereço</span>
-                        <strong>{{$order['street']}} - {{$order['number']}} - {{$order['neighborhood']}}</strong>
+                        <strong>{{$response->newOrder['street']}} - {{$response->newOrder['number']}} - {{$response->newOrder['neighborhood']}}</strong>
                     </div>
 
                     <div class="info-box">
@@ -31,33 +31,35 @@
 
                     <div class="info-box">
                         <span>Tipo de lavagem</span>
-                        <strong>{{$order['service']['name']}}</strong>
+                        <strong>{{$response->newOrder['service']['name']}}</strong>
+                        <span class="text-black"> Data : {{ formatDate($response->newOrder['date_schedule'])}} - Horario : {{formatTime($response->newOrder['hour_schedule'])}} {{$response->newOrder['weekDay']}}</span>
+
                     </div>
 
                     <div class="info-box">
                         <span>Veículo</span>
-                        <strong>{{$order['vehicle']}}</strong>
+                        <strong>{{$response->newOrder['vehicle']}}</strong>
                     </div>
                 </div>
 
                 <div class="actions">
-                    @if($order['status_washer'] === 'accepted' || $order['status'] === 'service_finish')
-                        <x-button color="sky" icon="check-badge" wire:click="changeStatus({{$order['id']}}, 'accepted')" disabled>Aceitar</x-button>
+                    @if($response->newOrder['status_washer'] === 'accepted' || $response->newOrder['status'] === 'service_finish')
+                        <x-button color="sky" icon="check-badge" wire:click="changeStatus({{$response->newOrder['id']}}, 'accepted')" disabled>Aceitar</x-button>
                     @else
-                        <x-button color="sky" icon="check-badge" wire:click="changeStatus({{$order['id']}}, 'accepted')" >Aceitar</x-button>
+                        <x-button color="sky" icon="check-badge" wire:click="changeStatus({{$response->newOrder['id']}}, 'accepted')" >Aceitar</x-button>
                     @endif
 
-                    @if($order['status'] === 'declined' || $order['status'] === 'service_finish')
-                        <x-button color="red" icon="x-circle" wire:click="changeStatus({{$order['id']}}, 'declined')" disabled>Recusar</x-button>
+                    @if($response->newOrder['status'] === 'declined' || $response->newOrder['status'] === 'service_finish')
+                        <x-button color="red" icon="x-circle" wire:click="changeStatus({{$response->newOrder['id']}}, 'declined')" disabled>Recusar</x-button>
                     @else
-                        <x-button color="red" icon="x-circle" wire:click="changeStatus({{$order['id']}}, 'declined')">Recusar</x-button>
+                        <x-button color="red" icon="x-circle" wire:click="changeStatus({{$response->newOrder['id']}}, 'declined')">Recusar</x-button>
                     @endif
                 </div>
             </div>
             @else
                 <div class="panel-head">
                     <h2>Sem novos pedidos no momento...</h2>
-{{--                    <x-badge text="{{$order['statusWasherLabel']}}" color="{{$order['statusWasherColor']}}"></x-badge>--}}
+{{--                    <x-badge text="{{$response->newOrder['statusWasherLabel']}}" color="{{$response->newOrder['statusWasherColor']}}"></x-badge>--}}
                 </div>
             @endif
         </div>

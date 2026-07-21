@@ -21,7 +21,7 @@
                     <td>
                         <div class="flex flex-col items-start">
                             <h1>{{$itemOrder['user']['name']}}</h1>
-                            <p class="text-xs uppercase">{{$itemOrder['vehicle']}} - {{$itemOrder['vehicle_plate']}}</p>
+                            <p class="text-xs uppercase">{{$itemOrder['vehicle']['name']}} - {{$itemOrder['vehicle']['plate']}}</p>
                         </div>
                     </td>
 

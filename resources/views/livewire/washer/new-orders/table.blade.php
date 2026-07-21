@@ -24,6 +24,8 @@
                 <div class="info-box">
                     <span>Serviço</span>
                     <strong>{{$itemOrder['service']['name']}}</strong>
+                    <span class="text-black"> Data : {{ formatDate($itemOrder['date_schedule'])}} - Horario : {{formatTime($itemOrder['hour_schedule'])}} - {{$itemOrder['weekDay']}}</span>
+
                 </div>
                 <div class="info-box">
                     <span>Valor</span>

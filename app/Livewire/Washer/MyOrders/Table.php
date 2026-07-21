@@ -4,6 +4,7 @@ namespace App\Livewire\Washer\MyOrders;
 
 use App\Repositories\Order\OrderRepository;
 use App\Traits\WithModal;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -55,7 +56,7 @@ class Table extends Component
     public function changeStatus($id = null, $status = null)
     {
         $ordersRepository = new OrderRepository();
-        $ordersReturnDB = $ordersRepository->updateStatus($id, $status);
+        $ordersReturnDB = $ordersRepository->updateStatus($id, Auth::id(), $status);
 
         if($ordersReturnDB['status'] == 'success') {
             $this->toast()->success('Sucesso', $ordersReturnDB['message'])->send();

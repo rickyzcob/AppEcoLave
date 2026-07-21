@@ -3,6 +3,8 @@
 namespace App\Repositories\Evaluate;
 
 use App\Models\Orders;
+use App\Models\UsersReviews;
+use Illuminate\Support\Facades\Auth;
 use PHPUnit\Exception;
 
 class EvaluateRepository
@@ -11,25 +13,29 @@ class EvaluateRepository
     public function index($orderBy = null)
     {
         try {
-            $orderDB = Orders::query()->with(['user','service.type'])->whereNotNull('rate');
+            $userReviewDB = UsersReviews::query()->with(['order.user']);
+
+            $userReviewDB->where('washer_id', Auth::id());
+
+//            $orderDB = Orders::query()->with(['user','service.type'])->whereNotNull('rate');
 
             if($orderBy) {
-                $orderDB->orderBy($orderBy['column'], $orderBy['direction']);
+                $userReviewDB->orderBy($orderBy['column'], $orderBy['direction']);
             }
 
             if (isset($filterData['search']) && $filterData['search'] != null ) {
-                $orderDB->where('name', 'like', '%'.$filterData['search'].'%');
+                $userReviewDB->where('name', 'like', '%'.$filterData['search'].'%');
             }
 
             if (isset($filterData['type']) && $filterData['type'] != null ) {
-                $orderDB->where('type', $filterData['type']);
+                $userReviewDB->where('type', $filterData['type']);
             }
 
-            $orderDB = $orderDB->take(4)->get();
+            $userReviewDB = $userReviewDB->take(4)->get();
 
             return [
                 'status' => 'success',
-                'data' => $orderDB,
+                'data' => $userReviewDB,
                 'code' => 200
             ];
 

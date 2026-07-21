@@ -15,7 +15,6 @@ return [
     | For example, prefixing as 'ts-', the `alert` usage will be: '<x-ts-alert />'
     */
     'prefix' => env('TALLSTACKUI_PREFIX'),
-
     /*
     |--------------------------------------------------------------------------
     | Color Classes Namespace
@@ -454,7 +453,7 @@ return [
                 | position: controls the default toast position (Allowed: top-right, top-left, bottom-right, bottom-left).
                 | timeout: controls the default timeout in seconds.
                 */
-                'z-index' => 'z-50',
+                'z-index' => 'z-10',
                 'progress' => true,
                 'expandable' => false,
                 'position' => 'top-right',

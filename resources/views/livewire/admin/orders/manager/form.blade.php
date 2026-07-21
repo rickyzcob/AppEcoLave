@@ -40,24 +40,16 @@
                 @enderror
             </div>
 
-
             <div class="col-span-12">
                 <div class="flex justify-between items-center py-2 border-b border-blue-200 mb-2">
                     <h1> Dados do veículo </h1>
                 </div>
             </div>
 
-            <div class="md:col-span-4 col-span-12">
-                <x-input  wire:model="state.vehicle" label="Modelo do veículo *"  />
-                @error('vehicle')
-                <div class="text-red-700 text-xs py-2">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="md:col-span-4 col-span-12">
-                <x-input wire:model="state.vehicle_plate" label="Placa do veículo *"  />
-                @error('vehicle_plate')
-                <div class="text-red-700 text-xs py-2">{{ $message }}</div>
+            <div class="md:col-span-6 col-span-12">
+                <x-select.styled label="Veículo do  cliente" wire:model.live="state.vehicle_id" :options="$response->vehicles" select="label:label|value:value" searchable/>
+                @error('vehicle_id')
+                <div class="text-red-800 text-xs p-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -80,6 +72,27 @@
                 <div class="text-red-800 text-xs p-1">{{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="col-span-12">
+                <div class="flex justify-between items-center py-2 border-b border-blue-200 mb-2">
+                    <h1> Data e Horario </h1>
+                </div>
+            </div>
+
+            <div class="md:col-span-6 col-span-12">
+                <x-date label="Data" wire:model.live="state.date_schedule" />
+                @error('date_schedule')
+                <div class="text-red-800 text-xs p-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="md:col-span-6 col-span-12">
+                <x-select.styled label="Horario" wire:model.live="state.hour_schedule" :options="$response->times" select="label:label|value:value"/>
+                @error('hour_schedule')
+                <div class="text-red-800 text-xs p-1">{{ $message }}</div>
+                @enderror
+            </div>
+
 
             <div class="col-span-12">
                 <div class="flex justify-between items-center py-2 border-b border-blue-200 mb-2">

@@ -14,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 #[Fillable([
     'name', 'phone', 'email', 'password','taxpayer_registration', 'zip_code',
     'address', 'number','complement', 'neighborhood', 'avatar', 'google_id', 'status',
-    'city', 'uf', 'scope', 'is_online', 'bank_name', 'key_pix', 'value_commission', 'committee_id'
+    'city', 'uf', 'scope', 'is_online', 'bank_name', 'key_pix', 'value_commission', 'committee_id', 'profile_photo_path'
 ])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
@@ -78,6 +78,13 @@ class User extends Authenticatable
                 'offline' => 'Offline',
                 'ocupied' => 'Ocupado',
             },
+        );
+    }
+
+    protected function firstName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => explode(' ', trim($this->name))[0] ?? ''
         );
     }
 }

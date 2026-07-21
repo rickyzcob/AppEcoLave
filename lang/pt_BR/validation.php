@@ -251,5 +251,10 @@ return [
         'value' => 'valor',
         'amount' => 'valor',
         'key_pix' => 'chave pix',
+        'vehicle_id' => 'veículo',
+        'zip_code' => 'cep',
+        'hour_schedule' => 'horario',
+        'date_schedule' => 'data',
+        'client_id' => 'cliente',
     ],
 ];

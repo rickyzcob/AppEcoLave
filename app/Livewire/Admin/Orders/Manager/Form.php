@@ -5,6 +5,8 @@ namespace App\Livewire\Admin\Orders\Manager;
 use App\Repositories\Admin\Orders\OrderRepository;
 use App\Repositories\Admin\Services\ServiceRepository;
 use App\Repositories\Admin\Services\TypeVehiclesRepository;
+use App\Repositories\Admin\Times\TimeRepository;
+use App\Repositories\Client\ClientVehiclesRepository;
 use App\Repositories\Washer\Washers\WasherRepository;
 use App\Services\Address\AddressService;
 use App\Services\Client\ClientService;
@@ -19,6 +21,9 @@ class Form extends Component
     public array $state = [
         'washer_id' => '',
         'type_id' => '',
+        'vehicle_id' => '',
+        'date_schedule' => '',
+        'hour_schedule' => '',
         'service_id' => '',
         'user' => [],
     ];
@@ -139,12 +144,26 @@ class Form extends Component
         return $washersRepository->getSelectWasher();
     }
 
+    public function getSelectVehiclesByUser()
+    {
+        $clientVehicleRepository = new ClientVehiclesRepository();
+        return $clientVehicleRepository->getSelectVehicles($this->client_id);
+    }
+
+    public function getSelectTimes()
+    {
+        $timeRepository = new TimeRepository();
+        return $timeRepository->getAvailableTimes($this->state['date_schedule']);
+    }
+
     public function render()
     {
         $response = new \stdClass();
         $response->types = $this->getSelectTypes();
         $response->services = $this->getSelectService();
         $response->washers = $this->getSelectWashers();
+        $response->vehicles = $this->getSelectVehiclesByUser();
+        $response->times = $this->getSelectTimes();
 
         return view('livewire.admin.orders.manager.form', ['response' => $response]);
     }

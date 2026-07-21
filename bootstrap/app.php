@@ -20,6 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('profissional')
                 ->name('profissional.')
                 ->group(base_path('routes/washer.php'));
+
+            Route::middleware(['web', 'route_client'])
+                ->prefix('painel-cliente')
+                ->name('client.')
+                ->group(base_path('routes/client.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {

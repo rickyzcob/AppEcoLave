@@ -24,6 +24,7 @@
                 <div class="info-box">
                     <span>Serviço</span>
                     <strong>{{$itemOrder['service']['name']}}</strong>
+                    <span class="text-black"> Data :  {{ formatDate($itemOrder['date_schedule'])}} - Horario : {{formatTime($itemOrder['hour_schedule'])}} - {{$itemOrder['weekDay']}}</span>
                 </div>
                 <div class="info-box">
                     <span>Valor</span>
@@ -31,7 +32,7 @@
                 </div>
                 <div class="info-box">
                     <span>Veículo</span>
-                    <strong>{{$itemOrder['vehicle']}} - {{$itemOrder['vehicle_plate']}}</strong>
+                    <strong>{{$itemOrder['vehicle']['name']}} - {{$itemOrder['vehicle']['plate']}}</strong>
                 </div>
                 <div class="info-box">
                     <span>Cliente</span>
@@ -54,9 +55,9 @@
 
 
                 @if($itemOrder['status_washer'] === 'accepted' && $itemOrder['status'] !== 'service_finish')
-                    <x-button class="secondary" icon="arrow-path-rounded-square" wire:click="openCentralModal('washer.orders.status.card', {'id': {{$itemOrder['id']}} })">Alterar Status</x-button>
+                    <x-button class="secondary" icon="arrow-path-rounded-square" wire:click="openCentralModal('washer.my-orders.status.card', {'id': {{$itemOrder['id']}} })">Alterar Status</x-button>
                 @elseif($itemOrder['status'] === 'service_finish')
-                    <x-button class="secondary" icon="arrow-path-rounded-square" wire:click="openCentralModal('washer.orders.status.card', {'id': {{$itemOrder['id']}} })" disabled>Alterar Status</x-button>
+                    <x-button class="secondary" icon="arrow-path-rounded-square" wire:click="openCentralModal('washer.my-orders.status.card', {'id': {{$itemOrder['id']}} })" disabled>Alterar Status</x-button>
                 @endif
             </div>
         </div>
