@@ -4,7 +4,9 @@ namespace App\Repositories\Client;
 
 use App\Models\User;
 use App\Requests\Client\ClientRequest;
+use App\Requests\PasswordRequest;
 use App\Requests\Washer\WasherRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Exception;
@@ -70,6 +72,33 @@ class ProfileRepository
                 'status' => 'error',
                 'code' => 400,
                 'message' => 'Erro na requisição'
+            ];
+        }
+    }
+
+    public function updatePassword($request)
+    {
+        $clientRequest = new ClientRequest();
+        $requestValidated = $clientRequest->validatePassword($request);
+
+        try {
+            $userDB = User::query()->findOrFail(Auth::user()->id);
+
+            $userDB->update($requestValidated);
+            $userDB->fresh();
+
+            return [
+                'status' => 'success',
+                'data' => $userDB,
+                'code' => 200,
+                'message' => 'Senha atualizada com sucesso !'
+            ];
+
+        }catch (\Exception $exception) {
+            return [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Erro ao Atualizar'
             ];
         }
     }

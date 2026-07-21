@@ -153,13 +153,12 @@
                         @enderror
                     </div>
 
-                    <!-- Botões de ação -->
                     <div class="form-group form-group-full">
                         <div class="profile-btn-row">
                             <button type="submit" class="btn btn-primary" style="flex:1;">
                                 <i class="fas fa-save"></i> Salvar Alterações
                             </button>
-                            <button type="button" class="btn btn-outline">
+                            <button type="button" wire:click="openCentralModal('client.my-profile.password.form', {'id': null})" class="btn btn-outline">
                                 <i class="fas fa-key"></i> Alterar Senha
                             </button>
                         </div>

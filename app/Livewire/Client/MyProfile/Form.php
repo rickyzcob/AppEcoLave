@@ -4,6 +4,7 @@ namespace App\Livewire\Client\MyProfile;
 
 use App\Repositories\Client\ProfileRepository;
 use App\Services\Address\AddressService;
+use App\Traits\WithModal;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -11,7 +12,7 @@ use TallStackUi\Traits\Interactions;
 
 class Form extends Component
 {
-    use Interactions, WithFileUploads;
+    use Interactions, WithFileUploads, WithModal;
 
     public $state = [];
     public $user;
