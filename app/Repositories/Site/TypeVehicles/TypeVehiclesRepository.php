@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repositories\TypeVehicles;
+namespace App\Repositories\Site\TypeVehicles;
 
 use App\Models\TypeVehicles;
-use App\Models\User;
 use PHPUnit\Exception;
 
 class TypeVehiclesRepository

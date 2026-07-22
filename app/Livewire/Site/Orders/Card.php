@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Site\Orders;
 
-use App\Repositories\Order\OrderRepository;
+use App\Repositories\Site\Order\OrderRepository;
 use App\Traits\WithModal;
 use Livewire\Attributes\On;
 use Livewire\Component;

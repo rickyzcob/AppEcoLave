@@ -3,7 +3,7 @@
 namespace App\Livewire\Washer\Dashboard\Order;
 
 use App\Models\Orders;
-use App\Repositories\Order\OrderRepository;
+use App\Repositories\Site\Order\OrderRepository;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;

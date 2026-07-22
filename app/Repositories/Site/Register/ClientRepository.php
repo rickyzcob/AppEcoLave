@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Register;
+namespace App\Repositories\Site\Register;
 
 use App\Models\User;
 use App\Requests\Register\ClientRequest;

@@ -2,8 +2,7 @@
 
 namespace App\Livewire\Admin\Evaluate;
 
-use App\Repositories\Admin\Orders\OrderRepository;
-use App\Repositories\Evaluate\EvaluateRepository;
+use App\Repositories\Vendor\Evaluate\EvaluateRepository;
 use Livewire\Component;
 
 class Card extends Component

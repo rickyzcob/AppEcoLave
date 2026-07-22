@@ -5,7 +5,7 @@ namespace App\Livewire\Client\NewSchedule;
 use App\Repositories\Admin\Times\TimeRepository;
 use App\Repositories\Client\ClientVehiclesRepository;
 use App\Repositories\Client\NewScheduleRepository;
-use App\Repositories\Services\ServicesRepository;
+use App\Repositories\Site\Services\ServicesRepository;
 use App\Services\Address\AddressService;
 use App\Traits\WithModal;
 use Illuminate\Support\Facades\Auth;
@@ -18,15 +18,12 @@ class Form extends Component
 
     public $state = [
         'vehicle_id' => '',
-        'date_schedule' => ''
+        'date_schedule' => '',
+        'type_payment' => '',
+        'payment_method' => '',
     ];
 
     public $order;
-
-    public function mount()
-    {
-
-    }
 
     public function getAddress()
     {
@@ -89,7 +86,7 @@ class Form extends Component
     public function getSelectVehicles()
     {
         $clientVehiclesRepository = new ClientVehiclesRepository();
-        return $clientVehiclesRepository->getSelectVehicles();
+        return $clientVehiclesRepository->getSelectVehicles(Auth::id());
     }
 
     public function getSelectServices()

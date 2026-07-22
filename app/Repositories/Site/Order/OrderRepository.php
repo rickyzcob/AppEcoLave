@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Repositories\Order;
+namespace App\Repositories\Site\Order;
 
 use App\Models\Orders;
-use App\Models\OrdersStatus;
 use App\Models\User;
 use App\Models\UserCommittees;
 use App\Repositories\Vendor\OrderStatusRepository;
 use App\Requests\Order\OrderRequest;
-use App\Requests\Register\ClientRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 

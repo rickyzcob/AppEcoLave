@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Washer\MyOrders;
 
-use App\Repositories\Order\OrderRepository;
+use App\Repositories\Site\Order\OrderRepository;
 use App\Traits\WithModal;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;

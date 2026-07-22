@@ -3,6 +3,7 @@
 namespace App\Requests\Client;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class NewScheduleRequest
 {
@@ -21,6 +22,11 @@ class NewScheduleRequest
             'neighborhood' => 'sometimes|nullable',
             'city' => 'sometimes|nullable',
             'uf' => 'sometimes|nullable',
+            'type_payment' => 'required',
+            'payment_method' => [
+                Rule::requiredIf(fn () => $request['type_payment'] == 'online'),
+                'sometimes',
+            ]
         ]);
         return $validator;
     }

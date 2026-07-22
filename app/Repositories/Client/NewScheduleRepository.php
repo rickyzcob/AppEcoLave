@@ -144,6 +144,29 @@ class NewScheduleRepository
         }
     }
 
+    public function showByReference($reference, $user_id)
+    {
+        try {
+            $orderDB = Orders::query()
+                ->where('reference', $reference)
+                ->where('user_id', $user_id)
+                ->first();
+
+            return [
+                'status' => 'success',
+                'data' => $orderDB,
+                'code' => 200,
+
+            ];
+        }catch (Exception $exception){
+            return [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Erro na requisição'
+            ];
+        }
+    }
+
     public function delete($id = null)
     {
         try {

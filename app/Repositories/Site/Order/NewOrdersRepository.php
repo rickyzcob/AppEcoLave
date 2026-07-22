@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Repositories\Order;
+namespace App\Repositories\Site\Order;
 
 use App\Models\Orders;
 use App\Models\User;
 use App\Models\UserCommittees;
 use App\Repositories\Vendor\OrderStatusRepository;
-use Illuminate\Support\Facades\Auth;
-use PHPUnit\Exception;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Exception;
 
 class NewOrdersRepository
 {

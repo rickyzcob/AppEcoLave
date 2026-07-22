@@ -3,18 +3,18 @@
 namespace App\Livewire\Site\Schedule;
 
 use App\Models\TypeVehicles;
-use App\Repositories\Order\OrderRepository;
-use App\Repositories\Register\ClientRepository;
-use App\Repositories\Services\ServicesRepository;
-use App\Repositories\TypeVehicles\TypeVehiclesRepository;
+use App\Repositories\Site\Order\OrderRepository;
+use App\Repositories\Site\Services\ServicesRepository;
+use App\Repositories\Site\TypeVehicles\TypeVehiclesRepository;
 use App\Services\Address\AddressService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
-class cForm extends Component
+class Form extends Component
 {
     use Interactions;
+
     public $type_vehicle_id;
     public $service;
 

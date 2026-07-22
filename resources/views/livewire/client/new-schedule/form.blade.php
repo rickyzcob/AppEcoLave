@@ -159,7 +159,7 @@
                     <label class="form-label" for="observacoes">
                         <i class="fas fa-comment"></i> Observações
                     </label>
-                    <textarea id="observacoes" name="observacoes" class="form-control" placeholder="Alguma instrução especial para o profissional?"></textarea>
+                    <textarea wire:model="state.observations" class="form-control" placeholder="Alguma instrução especial para o profissional?"></textarea>
                 </div>
 
                 <!-- Cupom -->
@@ -170,27 +170,50 @@
                     <input type="text" id="cupom" name="cupom" class="form-control" placeholder="Digite seu cupom">
                 </div>
 
-                <!-- Pagamento -->
                 <div class="md:col-span-3 col-span-12 form-group">
                     <label class="form-label" for="pagamento">
                         <i class="fas fa-credit-card"></i> Forma de Pagamento
                     </label>
-                    <select id="pagamento" name="pagamento" class="form-control">
-                        <option value="">Selecione o pagamento</option>
-                        <option value="pix">PIX</option>
-                        <option value="cartao">Cartão de Crédito</option>
-                        <option value="carteira">Saldo da Carteira</option>
-                        <option value="cashback">Cashback</option>
+                    <select wire:model.live="state.type_payment" class="form-control">
+                        <option value="">Escolha</option>
+                        <option value="local">Pagamento no Local</option>
+                        <option value="online">Pagamento online</option>
                     </select>
+                    @error('type_payment')
+                    <div class="form_error_message">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                <!-- Botão Agendar -->
+                @if($state['type_payment'] === 'online')
+                <div class="md:col-span-3 col-span-12 form-group">
+                    <label class="form-label" for="pagamento">
+                        <i class="fas fa-credit-card"></i> Tipo de Pagamento
+                    </label>
+                    <select wire:model.live="state.payment_method" class="form-control">
+                        <option value="">Selecione o pagamento</option>
+                        <option value="pix">PIX</option>
+                        <option value="credit">Cartão de Crédito</option>
+{{--                        <option value="carteira">Saldo da Carteira</option>--}}
+{{--                        <option value="cashback">Cashback</option>--}}
+                    </select>
+                    @error('payment_method')
+                    <div class="form_error_message">{{ $message }}</div>
+                    @enderror
+                </div>
+                @endif
+
+
+
+
                 <div class="form-group form-group-full" style="margin-top: 6px;">
                     <button type="submit" class="btn btn-primary btn-lg btn-full">
                         <i class="fas fa-calendar-check"></i>
                         AGENDAR AGORA
                     </button>
                 </div>
+
+
+
 
             </div>
         </form>

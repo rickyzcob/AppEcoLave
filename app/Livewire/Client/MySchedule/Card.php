@@ -3,7 +3,7 @@
 namespace App\Livewire\Client\MySchedule;
 
 use App\Repositories\Client\MySchedulesRepository;
-use App\Repositories\Order\OrderRepository;
+use App\Repositories\Site\Order\OrderRepository;
 use App\Traits\WithModal;
 use Livewire\Attributes\On;
 use Livewire\Component;

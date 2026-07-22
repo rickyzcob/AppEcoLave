@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Repositories\Services;
+namespace App\Repositories\Site\Services;
 
 use App\Models\Services;
-use App\Models\TypeVehicles;
 use App\Models\UsersVehicles;
 use PHPUnit\Exception;
 
-class ServicesRepository
+class
+ServicesRepository
 {
     public function index($type_vehicle_id)
     {

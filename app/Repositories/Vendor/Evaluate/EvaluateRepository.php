@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Repositories\Evaluate;
+namespace App\Repositories\Vendor\Evaluate;
 
-use App\Models\Orders;
 use App\Models\UsersReviews;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Exception;

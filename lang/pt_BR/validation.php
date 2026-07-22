@@ -256,5 +256,7 @@ return [
         'hour_schedule' => 'horario',
         'date_schedule' => 'data',
         'client_id' => 'cliente',
+        'payment_method' => 'tipo de pagamento',
+        'type_payment' => 'forma de pagamento',
     ],
 ];

@@ -16,7 +16,8 @@ class Orders extends Model
         'vehicle_id', 'user_id', 'washer_id', 'service_id', 'reference', 'observations',
         'zip_code', 'street', 'number', 'complement',
         'neighborhood',  'city', 'uf', 'status', 'price', 'status_washer',
-        'vehicle_plate', 'vehicle', 'comment', 'rate', 'date_schedule', 'hour_schedule'
+        'vehicle_plate', 'vehicle', 'comment', 'rate', 'date_schedule', 'hour_schedule',
+        'type_payment', 'payment_method'
     ];
 
     public function user()

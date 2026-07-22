@@ -2,11 +2,10 @@
 
 namespace App\Repositories\Admin\Orders;
 
-use App\Models\Committees;
 use App\Models\Orders;
 use App\Models\User;
 use App\Models\UserCommittees;
-use App\Repositories\Order\NewOrdersRepository;
+use App\Repositories\Site\Order\NewOrdersRepository;
 use App\Repositories\Vendor\OrderStatusRepository;
 use App\Requests\Admin\OrderRequest;
 use PHPUnit\Exception;

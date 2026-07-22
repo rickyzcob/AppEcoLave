@@ -3,8 +3,6 @@
 namespace App\Livewire\Client\Historic;
 
 use App\Repositories\Client\HistoricRepository;
-use App\Repositories\Client\MySchedulesRepository;
-use App\Repositories\Order\OrderRepository;
 use App\Traits\WithModal;
 use Livewire\Attributes\On;
 use Livewire\Component;

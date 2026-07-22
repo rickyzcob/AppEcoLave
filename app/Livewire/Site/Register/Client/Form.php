@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Site\Register\Client;
 
-use App\Repositories\Register\ClientRepository;
+use App\Repositories\Site\Register\ClientRepository;
 use App\Services\Address\AddressService;
 use Livewire\Component;
 use Livewire\WithFileUploads;
