@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Repositories\Vendor\OrderStatusRepository;
 use App\Requests\Admin\OrderRequest;
 use App\Requests\Client\NewScheduleRequest;
+use App\Services\Asaas\ClientService;
+use App\Services\Asaas\PaymentCreditCardService;
+use App\Services\Asaas\PaymentPixService;
 use PHPUnit\Exception;
 
 class NewScheduleRepository
@@ -74,11 +77,15 @@ class NewScheduleRepository
                 $requestValidated['user_id'] = $userDB['id'];
             }
 
+            if($requestValidated['type_payment'] === 'online'){
+                $requestValidated['status'] = 'waiting';
+            }
+
             $orderDB = Orders::query()->create($requestValidated);
+
 
             $orderStatusRepository = new OrderStatusRepository();
             $orderStatusRepository->createStatusesByOrderId($orderDB->id);
-
 
             return [
                 'status' => 'success',
@@ -148,8 +155,10 @@ class NewScheduleRepository
     {
         try {
             $orderDB = Orders::query()
+                ->with(['service.type', 'vehicle'])
                 ->where('reference', $reference)
                 ->where('user_id', $user_id)
+//                ->where('status', 'waiting')
                 ->first();
 
             return [
@@ -188,6 +197,130 @@ class NewScheduleRepository
                 'message' => 'Erro ao deletar'
             ];
         }
+    }
+
+    public function addCreditCardPayment($order_id, $request)
+    {
+        $newScheduleRequest = new OrderRequest();
+        $requestValidated = $newScheduleRequest->validatePayment($request);
+
+        try {
+
+            $orderDB = Orders::query()->with(['user', 'service'])->findOrFail($order_id);
+
+            if($orderDB['status'] === 'waiting'){
+
+                $this->addClientToAsaas($orderDB['user_id']);
+
+                $paymentService = new PaymentCreditCardService();
+                $paymentReturn = $paymentService->create($orderDB, $requestValidated);
+
+                if(isset($paymentReturn['errors'])){
+                    return [
+                        'status' => 'error',
+                        'code' => 400,
+                        'data' => $paymentReturn['errors'][0],
+                        'message' => 'Erro ao processar pagamento'
+                    ];
+                }
+
+                $orderDB->update([
+                    'status' => 'received',
+                    'payment_id' => $paymentReturn['id'],
+                ]);
+
+                return [
+                    'status' => 'success',
+                    'data' => $orderDB,
+                    'code' => 200,
+                    'message' => 'Pagamento processado com sucesso !'
+                ];
+            }
+
+
+        } catch (\Exception $exception) {
+
+            return [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Erro ao processar pagamento'
+            ];
+        }
+    }
+
+    public function addPixPayment($order_id)
+    {
+        try {
+
+            $orderDB = Orders::query()->with(['user', 'service'])->findOrFail($order_id);
+
+            if($orderDB['status'] === 'waiting' && $orderDB['payment_id'] === null){
+
+                $return = $this->addClientToAsaas($orderDB['user_id']);
+
+                if(isset($return['errors'])){
+                    return [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => $return['errors'][0]['description']
+                    ];
+                }
+
+                $paymentPixService = new PaymentPixService();
+                $paymentReturn = $paymentPixService->create($orderDB);
+
+                if(isset($paymentReturn['errors'])){
+                    return [
+                        'status' => 'error',
+                        'code' => 400,
+                        'data' => $paymentReturn['errors'][0],
+                        'message' => 'Erro ao processar pagamento'
+                    ];
+                }
+
+                $orderDB->update([
+                    'payment_id' => $paymentReturn['id'],
+                ]);
+            }
+
+            return [
+                'status' => 'success',
+                'data' => $orderDB,
+                'code' => 200,
+                'message' => 'Pix processado com sucesso !'
+            ];
+
+        } catch (\Exception $exception) {
+
+            dd($exception);
+            return [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Erro ao processar pagamento'
+            ];
+        }
+    }
+
+    public function addClientToAsaas($user_id)
+    {
+        $userDB = User::query()->findOrFail($user_id);
+
+        if($userDB['asaas_id'] === null) {
+            $clientService = new ClientService();
+            $clientReturn = $clientService->create($userDB);
+
+            if(!isset($clientReturn['errors'])){
+                $userDB->update([
+                    'asaas_id' => $clientReturn['id'],
+                ]);
+            }
+            return $clientReturn;
+
+        }
+
+        return '';
+
+
     }
 
 }

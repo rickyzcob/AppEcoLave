@@ -9,10 +9,10 @@
         </div>
     </div>
 
-    <div class="alert alert-success">
-        <i class="fas fa-info-circle"></i>
-        Você possui <strong>5 cupons disponíveis</strong>. Aproveite no próximo agendamento!
-    </div>
+{{--    <div class="alert alert-success">--}}
+{{--        <i class="fas fa-info-circle"></i>--}}
+{{--        Você possui <strong>5 cupons disponíveis</strong>. Aproveite no próximo agendamento!--}}
+{{--    </div>--}}
 
     <div class="form-card">
         <form wire:submit="save">

@@ -49,4 +49,26 @@ class OrderRequest
         ]);
         return $validator;
     }
+
+    public function validatePayment($request, $id = null)
+    {
+        $validator =  Validator::validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'taxpayer_registration' => 'required',
+            'zip_code' => 'required',
+            'street' => 'required',
+            'number' => 'required',
+            'complement' => 'sometimes|nullable',
+            'neighborhood' => 'sometimes|nullable',
+            'holder_name' => 'required',
+            'holder_number' => 'required',
+            'expiry_month' => 'required',
+            'expiry_year' => 'required',
+            'ccv' => 'required',
+        ]);
+
+        return $validator;
+    }
 }

@@ -186,7 +186,7 @@
        HEADER
     ============================================================ */
     .header {
-        @apply h-[var(--header-height)] border-b-[color:var(--gray-medium)] flex items-center gap-3.5 sticky z-[10] shadow-[var(--shadow-xs)] px-6 py-0 border-b border-solid top-0;
+        @apply h-[var(--header-height)] border-b-[color:var(--gray-medium)] flex items-center gap-3.5 sticky  shadow-[var(--shadow-xs)] px-6 py-0 border-b border-solid top-0;
         background: var(--white);
     }
     .header-greeting {

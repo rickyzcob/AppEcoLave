@@ -25,6 +25,8 @@ class NormalButtonColors
         return [
             'solid' => [
                 'black' => 'text-white ring-black bg-black focus:bg-black hover:bg-black/80 border-transparent focus:ring-offset-2 dark:focus:ring-offset-dark-900 dark:focus:ring-black dark:bg-black dark:hover:bg-black/80 dark:hover:ring-black',
+                'white' => 'text-black ring-black bg-white focus:bg-white hover:bg-white/80 border-transparent focus:ring-offset-2 dark:focus:ring-offset-dark-900 dark:focus:ring-black dark:bg-black dark:hover:bg-black/80 dark:hover:ring-black',
+
                 'primary' => 'text-primary-50 ring-primary-500 bg-primary-500 focus:bg-primary-600 hover:bg-primary-600 border-transparent focus:ring-offset-2 dark:focus:ring-offset-dark-900 dark:focus:ring-primary-600 dark:bg-primary-700 dark:hover:bg-primary-600 dark:hover:ring-primary-600',
                 'secondary' => 'text-secondary-50 ring-secondary-500 bg-secondary-500 focus:bg-secondary-600 hover:bg-secondary-600 border-transparent focus:ring-offset-2 dark:focus:ring-offset-dark-900 dark:focus:ring-secondary-600 dark:bg-secondary-700 dark:hover:bg-secondary-600 dark:hover:ring-secondary-600',
                 'slate' => 'text-slate-50 ring-slate-500 bg-slate-500 focus:bg-slate-600 hover:bg-slate-600 border-transparent focus:ring-offset-2 dark:focus:ring-offset-dark-900 dark:focus:ring-slate-600 dark:bg-slate-700 dark:hover:bg-slate-600 dark:hover:ring-slate-600',

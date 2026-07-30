@@ -21,10 +21,12 @@ class Card extends Component
 
     public $pageSize = 5;
 
+
     #[On('getOrderByClient')]
     public function getOrderByClient()
     {
         $myScheduleRepository = new MySchedulesRepository();
+
         return $myScheduleRepository->index($this->direction, $this->pageSize)['data'];
     }
 
@@ -55,6 +57,7 @@ class Card extends Component
     {
         $response = new \stdClass();
         $response->schedules = $this->getOrderByClient();
+        $this->toast()->success('Sucesso', 'Pagamento Efetuado com sucesso');
 
         return view('livewire.client.my-schedule.card', ['response' => $response]);
     }

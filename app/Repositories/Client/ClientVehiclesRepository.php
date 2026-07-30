@@ -5,6 +5,7 @@ namespace App\Repositories\Client;
 use App\Models\UsersVehicles;
 use App\Requests\Admin\ClientRequest;
 use App\Requests\Client\VehicleRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
@@ -13,7 +14,8 @@ class ClientVehiclesRepository
     public function index($filterData = null, $pageSize = null, $orderBy = null)
     {
         try {
-            $userVehiclesDB = UsersVehicles::query();
+            $userVehiclesDB = UsersVehicles::query()
+            ->where('user_id', Auth::id());
 
             if($orderBy) {
                 $userVehiclesDB->orderBy($orderBy['column'], $orderBy['order']);

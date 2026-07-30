@@ -4,6 +4,7 @@ namespace App\Repositories\Site\Register;
 
 use App\Models\User;
 use App\Requests\Register\ClientRequest;
+use App\Services\Asaas\ClientService;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
@@ -43,7 +44,7 @@ class ClientRepository
             return [
                 'status' => 'error',
                 'code' => 400,
-                'message' => 'Erro ao Indexar'
+                'message' => 'Erro ao Cadastrar'
             ];
         }
     }
@@ -53,7 +54,22 @@ class ClientRepository
         $clientRequest = new ClientRequest();
         $requestValidated = $clientRequest->validate($request);
 
+
         try {
+            $clientService = new ClientService();
+            $clientReturnDB = $clientService->create($request);
+
+            if(isset($clientReturnDB['errors'])){
+                return [
+                    'status' => 'error',
+                    'data' => $clientReturnDB['errors'],
+                    'code' => 400,
+                    'message' => 'Erro ao Cadastrar'
+                ];
+            }
+
+            $requestValidated['asaas_id'] = $clientReturnDB['id'];
+
             $userDB = User::query()->create($requestValidated);
 
             return [

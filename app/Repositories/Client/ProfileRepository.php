@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Requests\Client\ClientRequest;
 use App\Requests\PasswordRequest;
 use App\Requests\Washer\WasherRequest;
+use App\Services\Asaas\ClientService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,25 @@ class ProfileRepository
                 $requestValidated['profile_photo_path'] = $userDB['profile_photo_path'];
             }
 
+            $clientService = new ClientService();
+
+            if($userDB['asaas_id'] === null) {
+                $clientReturn = $clientService->create($requestValidated);
+            } else {
+                $clientReturn = $clientService->update($userDB['asaas_id'], $requestValidated);
+            }
+
+            if(isset($clientReturn['errors'])) {
+                return [
+                    'status' => 'error',
+                    'data' => $userDB,
+                    'code' => 400,
+                    'message' => $clientReturn['errors'][0]['description']
+                ];
+            }
+            $requestValidated['asaas_id'] = $clientReturn['id'];
             $userDB->update($requestValidated);
+
 
             DB::commit();
 
@@ -46,7 +65,7 @@ class ProfileRepository
             ];
 
         } catch (\Exception $exception) {
-            dd($exception);
+
             DB::rollback();
             return [
                 'status' => 'error',

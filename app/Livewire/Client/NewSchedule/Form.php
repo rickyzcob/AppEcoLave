@@ -55,11 +55,14 @@ class Form extends Component
         $newScheduleReturnDB = $newScheduleRepository->create(Auth::id(), $request);
 
         if($newScheduleReturnDB['status'] == 'success') {
-            $this->toast()->success('Sucesso', $newScheduleReturnDB['message'])->send();
-            $this->closeCentralModal();
-            $this->reset('state');
-            $this->redirectRoute('client.my-schedule');
-
+            if($newScheduleReturnDB['data']['type_payment'] === 'online'){
+                $this->redirectRoute('client.payment', ['reference' => $newScheduleReturnDB['data']['reference']]);
+            } else{
+                $this->toast()->success('Sucesso', $newScheduleReturnDB['message'])->send();
+                $this->closeCentralModal();
+                $this->reset('state');
+                $this->redirectRoute('client.my-schedule');
+            }
         } else if ($newScheduleReturnDB['status'] == 'error') {
             $this->toast()->error('Erro', $newScheduleReturnDB['message'])->send();
             $this->closeCentralModal();

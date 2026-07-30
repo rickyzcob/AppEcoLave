@@ -9,11 +9,16 @@ use Livewire\Component;
 class Card extends Component
 {
     public $payment_method;
+    public $reference;
 
     public function mount($reference)
     {
         $scheduleRepository = new NewScheduleRepository();
-        $this->payment_method = $scheduleRepository->showByReference($reference, Auth::id())['data']['payment_method'];
+        $scheduleReturnDB = $scheduleRepository->showByReference($reference, Auth::id())['data'];
+
+        if($scheduleReturnDB){
+            $this->payment_method = $scheduleReturnDB['payment_method'];
+        }
     }
 
     public function render()

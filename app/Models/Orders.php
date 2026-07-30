@@ -17,7 +17,7 @@ class Orders extends Model
         'zip_code', 'street', 'number', 'complement',
         'neighborhood',  'city', 'uf', 'status', 'price', 'status_washer',
         'vehicle_plate', 'vehicle', 'comment', 'rate', 'date_schedule', 'hour_schedule',
-        'type_payment', 'payment_method'
+        'type_payment', 'payment_method' , 'payment_id'
     ];
 
     public function user()
@@ -85,16 +85,13 @@ class Orders extends Model
     }
 
 
-    protected static function booted()
-    {
-        $referenceService = new ReferenceService();
-        static::creating(fn(Orders $order) => $order->reference = $referenceService->getReference());
-    }
+
 
     protected function statusLabel(): Attribute
     {
         return Attribute::make(
             get: fn () => match ($this->status) {
+                'waiting' => 'Aguardando Pagamento',
                 'received' => 'Pedido Recebido',
                 'accepted' => 'Pedido Aceito',
                 'canceled' => 'Serviço Cancelado',
@@ -110,7 +107,8 @@ class Orders extends Model
     {
         return Attribute::make(
             get: fn () => match ($this->status) {
-                'received' => 'orange',
+                'waiting' => 'orange',
+                'received' => 'fuchsia',
                 'accepted' => 'blue',
                 'canceled' => 'red',
                 'on_the_way' => 'yellow',
@@ -149,5 +147,11 @@ class Orders extends Model
                 'canceled' => 'red',
             },
         );
+    }
+
+    protected static function booted()
+    {
+        $referenceService = new ReferenceService();
+        static::creating(fn(Orders $order) => $order->reference = $referenceService->getReference());
     }
 }

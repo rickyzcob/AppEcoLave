@@ -6,10 +6,11 @@ use App\Repositories\Site\Register\ClientRepository;
 use App\Services\Address\AddressService;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use TallStackUi\Traits\Interactions;
 
 class Form extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, Interactions;
 
     public $state = [
         'type_vehicle' => ''
@@ -64,10 +65,10 @@ class Form extends Component
         $clientRepository = new ClientRepository();
         $clientReturnDB = $clientRepository->create($request);
 
-        if($clientReturnDB['status'] == 'success') {
+        if($clientReturnDB['status'] === 'success') {
             return redirect()->route('login')->with($clientReturnDB['status'], $clientReturnDB['message']);
-        } else if ($clientReturnDB['status'] == 'error') {
-            return back()->with($clientReturnDB['status'], $clientReturnDB['message']);
+        } else if ($clientReturnDB['status'] === 'error') {
+            $this->dialog()->error('Erro', $clientReturnDB['data'][0]['description'] ?? $clientReturnDB['data']['message'])->send();
         }
     }
 

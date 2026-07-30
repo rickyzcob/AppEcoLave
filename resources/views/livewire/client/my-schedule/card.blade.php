@@ -1,4 +1,5 @@
 <div>
+    @include('client.includes.alerts')
     <section id="status-pedido" class="section">
         @foreach($response->schedules as $itemSchedule)
             <div class="section-header pt-3">
@@ -51,6 +52,16 @@
                                 <i class="fas fa-star"></i>
                                 AVALIE O SERVIÇO
                             </button>
+                        </div>
+                    @endif
+
+                    @if($itemSchedule['status'] === 'waiting')
+                        <div class="form-group form-group-full pt-7" style="margin-top: 6px;">
+                            <a href="{{route('client.payment', ['reference' => $itemSchedule['reference']])}}"
+                                    class="btn btn-primary btn-lg btn-full">
+                                <i class="fas fa-credit-card"></i>
+                                EFETUAR PAGAMENTO
+                            </a>
                         </div>
                     @endif
                 </div>
