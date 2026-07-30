@@ -29,7 +29,9 @@
 
                     <td class="text-center">
                         <x-button sm text="Pagar" color="green"  wire:click="openCentralModal('admin.withdrawal.pay.form', {'id': {{$itemWithdrawal['id']}} })"/>
-                        <x-button sm text="Comprovante" color="blue"  wire:click="downloadProof({{$itemWithdrawal['id']}})"/>
+                        @if($itemWithdrawal['file_path'] != null)
+                            <x-button sm text="Comprovante" color="blue"  wire:click="downloadProof({{$itemWithdrawal['id']}})"/>
+                        @endif
                     </td>
                 </tr>
             @endforeach
