@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\Client;
+namespace App\Repositories\Admin\Dashboard;
 
 use App\Models\Orders;
 use PHPUnit\Exception;
 
-class MySchedulesRepository
+class OrdersRepository
 {
     public function index($orderBy = null, $pageSize = null, $filterData = null)
     {
@@ -14,7 +14,7 @@ class MySchedulesRepository
                 ->with([
                     'service.type',
                     'statuses'
-                ]);
+                ])->latest()->take(4);
 
             if($orderBy) {
                 $orderDB->orderBy($orderBy['column'], $orderBy['direction']);
@@ -34,8 +34,6 @@ class MySchedulesRepository
                 $orderDB = $orderDB->get();
             }
 
-
-            dd($orderDB);
             return [
                 'status' => 'success',
                 'data' => $orderDB,

@@ -8,7 +8,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::view('/profissionais', 'admin.washers.index')->middleware('auth')->name('washers');
     Route::view('/comissoes', 'admin.committees.index')->middleware('auth')->name('committees');
     Route::view('/servicos', 'admin.services.index')->middleware('auth')->name('services');
-    Route::view('/pedidos', 'admin.orders.index')->middleware('auth')->name('my-my-orders');
+    Route::view('/pedidos', 'admin.orders.index')->middleware('auth')->name('orders');
     Route::view('/usuarios', 'admin.users.index')->middleware('auth')->name('users');
     Route::view('/avaliacoes', 'admin.evaluate.index')->middleware('auth')->name('evaluate');
     Route::view('/financeiro', 'admin.financial.index')->middleware('auth')->name('financial');

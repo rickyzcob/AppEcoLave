@@ -38,8 +38,8 @@
             <span>🚘</span> Serviços
         </button>
 
-        <button class="{{ request()->routeIs('admin.my-my-orders') ? 'active' : '' }}"
-                onclick="window.location='{{ route('admin.my-my-orders') }}'">
+        <button class="{{ request()->routeIs('admin.orders') ? 'active' : '' }}"
+                onclick="window.location='{{ route('admin.orders') }}'">
             <span>📦</span> Pedidos
         </button>
 
