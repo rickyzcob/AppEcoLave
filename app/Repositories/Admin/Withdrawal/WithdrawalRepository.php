@@ -187,7 +187,7 @@ class WithdrawalRepository
 
             $withDrawalDB = Withdrawals::query()->findOrFail($id);
 
-            if(Storage::disk('public')->exists($withDrawalDB['file_path'])) {
+            if($withDrawalDB['file_path'] != null && Storage::disk('public')->exists($withDrawalDB['file_path'])) {
                 Storage::disk('public')->delete($withDrawalDB['file_path']);
             }
             $requestValidated['file_path'] = $file->store('proof', 'public');
