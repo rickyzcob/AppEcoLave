@@ -38,7 +38,8 @@
         </div>
     </section>
 
-    <section class="problemas-resolvidos" id="problemas">
+    <section id="problemas">
+
         <div class="title">
             <span>Problema que o sistema soluciona</span>
             <h2>Lavagem automotiva mais simples para o cliente e mais organizada para a empresa</h2>
@@ -48,26 +49,33 @@
             </p>
         </div>
 
-        <div class="problemas-grid">
-            <div class="problema-box">
-                <h3>Antes do sistema</h3>
-                <ul class="lista-beneficios">
-                    <li>Cliente perde tempo procurando lava-jato disponível.</li>
-                    <li>Atendimento depende de mensagens manuais e informações incompletas.</li>
-                    <li>Empresa tem dificuldade para controlar pedidos, horários e lavadores.</li>
-                    <li>Cliente não acompanha status, valor e andamento do serviço com clareza.</li>
-                </ul>
+            <div class="grid grid-cols-12 gap-4">
+                <div class="md:col-span-6 col-span-12">
+                    <div class="problema-box">
+                        <h3>Antes do sistema</h3>
+                        <ul class="lista-beneficios">
+                            <li>Cliente perde tempo procurando lava-jato disponível.</li>
+                            <li>Atendimento depende de mensagens manuais e informações incompletas.</li>
+                            <li>Empresa tem dificuldade para controlar pedidos, horários e lavadores.</li>
+                            <li>Cliente não acompanha status, valor e andamento do serviço com clareza.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="md:col-span-6 col-span-12">
+                    <div class="solucao-box">
+                        <h3>Com a EcoLave</h3>
+                        <ul class="lista-beneficios">
+                            <li>Agendamento rápido pelo celular com poucos dados no início.</li>
+                            <li>Serviço no endereço do cliente, sem fila e sem deslocamento.</li>
+                            <li>Valor estimado antes da confirmação do pedido.</li>
+                            <li>Fluxo organizado para cliente, lavador e painel administrativo.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <div class="solucao-box">
-                <h3>Com a EcoLave</h3>
-                <ul class="lista-beneficios">
-                    <li>Agendamento rápido pelo celular com poucos dados no início.</li>
-                    <li>Serviço no endereço do cliente, sem fila e sem deslocamento.</li>
-                    <li>Valor estimado antes da confirmação do pedido.</li>
-                    <li>Fluxo organizado para cliente, lavador e painel administrativo.</li>
-                </ul>
-            </div>
+
         </div>
     </section>
 
