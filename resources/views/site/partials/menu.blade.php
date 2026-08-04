@@ -1,4 +1,5 @@
-<a class="logo" href="{{ route('home') }}">Eco<span>Lave</span></a>
+
+<livewire:site.partials.logo/>
 <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 <div class="menu-area" id="menuArea">
     <nav>

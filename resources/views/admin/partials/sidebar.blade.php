@@ -84,8 +84,11 @@
         <button data-page="cupons">
             <span>🎟️</span> Cupons
         </button>
-        <button data-page="configuracoes">
+
+        <button class="{{ request()->routeIs('admin.configurations') ? 'active' : '' }}"
+                onclick="window.location='{{ route('admin.configurations') }}'">
             <span>⚙️</span> Configurações
         </button>
+
     </div>
 </aside>

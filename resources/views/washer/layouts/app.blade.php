@@ -33,14 +33,21 @@
     @include('washer.partials.sidebar')
 
     <main class="content">
-
         @yield('content')
-
     </main>
 </div>
 
 @livewireScriptConfig
 
+<script>
+    function toggleSidebar(){
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    document.querySelectorAll('.menu button').forEach(btn => {
+        btn.addEventListener('click', () => openPage(btn.dataset.page));
+    });
+</script>
 
 </body>
 </html>

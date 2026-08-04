@@ -38,7 +38,7 @@
 
                     <div class="info-box">
                         <span>Veículo</span>
-                        <strong>{{$response->newOrder['vehicle']}}</strong>
+                        <strong>{{$response->newOrder['vehicle']['name']}}</strong>
                     </div>
                 </div>
 

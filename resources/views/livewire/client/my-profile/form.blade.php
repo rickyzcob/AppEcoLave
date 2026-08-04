@@ -5,8 +5,6 @@
         <div class="profile-banner">
             <div class="profile-avatar-wrap">
                 <div class="profile-avatar">
-{{--                    <i class="fas fa-user"></i>--}}
-
                     @if (isset($profile_photo_path))
                         <img src="{{ $profile_photo_path->temporaryUrl() }}" class="rounded-full mx-auto d-block w-96">
                     @elseif(auth()->user()->profile_photo_path == null)

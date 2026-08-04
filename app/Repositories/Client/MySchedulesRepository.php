@@ -34,8 +34,6 @@ class MySchedulesRepository
                 $orderDB = $orderDB->get();
             }
 
-
-            dd($orderDB);
             return [
                 'status' => 'success',
                 'data' => $orderDB,

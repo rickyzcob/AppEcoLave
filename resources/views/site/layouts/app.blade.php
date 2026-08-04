@@ -22,36 +22,10 @@
 </head>
 <body>
 
-{{--<div--}}
-
-{{--    class="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-500"--}}
-{{-->--}}
-{{--    <div class="flex flex-col items-center">--}}
-
-{{--        <!-- Logo -->--}}
-{{--        <img src="{{ asset('images/logo.png') }}"--}}
-{{--             alt="Efllow"--}}
-{{--             class="w-24 mb-8 animate-pulse">--}}
-
-{{--        <!-- Spinner -->--}}
-{{--        <div class="relative">--}}
-{{--            <div class="w-16 h-16 border-4 border-blue-100 rounded-full"></div>--}}
-
-{{--            <div class="absolute inset-0 w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>--}}
-{{--        </div>--}}
-
-{{--        <p class="mt-6 text-gray-500 text-sm tracking-wide">--}}
-{{--            Carregando sistema...--}}
-{{--        </p>--}}
-
-{{--    </div>--}}
-{{--</div>--}}
-
     <x-dialog />
     <x-slide />
     <x-modal />
     <x-toast />
-
 
     <livewire:components.open-modal/>
 
@@ -59,29 +33,13 @@
         @include('site.partials.menu')
     </header>
 
-
     @yield('content')
 
     @include('site.partials.footer')
 
     @livewireScriptConfig
 
-
     <script src="{{asset('site/assets/js/app.js')}}"></script>
-
-{{--    <script>--}}
-{{--        window.addEventListener('load', () => {--}}
-
-{{--            const loader = document.getElementById('page-loader');--}}
-
-{{--            loader.classList.add('opacity-0');--}}
-
-{{--            setTimeout(() => {--}}
-{{--                loader.remove();--}}
-{{--            }, 500);--}}
-
-{{--        });--}}
-{{--    </script>--}}
 
 </body>
 </html>

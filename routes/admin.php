@@ -14,6 +14,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::view('/financeiro', 'admin.financial.index')->middleware('auth')->name('financial');
     Route::view('/solicitacoes-de-saques', 'admin.withdrawal.index')->middleware('auth')->name('withdrawal');
 
+    Route::view('/configuracoes', 'admin.configurations.index')->middleware('auth')->name('configurations');
+
+
     Route::view('/meu-perfil', 'admin.profile.index')->middleware('auth')->name('my-profile');
 
 });
