@@ -28,11 +28,12 @@ class ConfigurationsRepository
                     Storage::delete('public/'.$configurationsDB['logo']);
                 }
                 $requestValidated['logo'] = $logo->store('configurations/logo', 'public');
-            } else {
-                $requestValidated['logo'] = $configurationsDB['logo'];
             }
-
-            $configurationsDB->update($requestValidated);
+            if($configurationsDB) {
+                $configurationsDB->update($requestValidated);
+            } else {
+                $configurationsDB = Configurations::query()->create($requestValidated);
+            }
 
             DB::commit();
 
@@ -44,6 +45,7 @@ class ConfigurationsRepository
             ];
 
         }catch (\Exception $exception) {
+            dd($exception);
             DB::rollback();
             return [
                 'status' => 'error',

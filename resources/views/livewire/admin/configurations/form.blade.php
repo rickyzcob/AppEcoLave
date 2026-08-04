@@ -46,8 +46,7 @@
                                 <div class="profile-avatar">
                                     @if (isset($logo))
                                         <img src="{{ $logo->temporaryUrl() }}" class="rounded-full mx-auto d-block w-96">
-                                    @elseif($state['logo'] !== null)
-
+                                    @elseif(isset($state['logo']) && $state['logo'] !== null)
                                         <img src="{{ url('storage/'.$state['logo']) }}" class="rounded-full mx-auto d-block w-96" alt="Usuario" >
                                     @endif
                                 </div>
